@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/core": "7.4.3",
     "@svgr/webpack": "4.1.0",
-    "@types/jest": "24.0.12",
+    "@types/jest": "^24.0.12",
     "@types/node": "11.13.8",
     "@types/react": "16.8.15",
     "@types/react-dom": "16.8.4",
@@ -88,7 +88,8 @@
       "!src/**/*.d.ts"
     ],
     "setupFiles": [
-      "react-app-polyfill/jsdom"
+      "react-app-polyfill/jsdom",
+      "<rootDir>/src/setupTests.js"
     ],
     "setupFilesAfterEnv": [],
     "testMatch": [
@@ -125,6 +126,9 @@
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
     ]
   },
   "babel": {
@@ -133,6 +137,12 @@
     ]
   },
   "devDependencies": {
+    "@types/enzyme": "^3.9.1",
+    "babel-preset-env": "^1.7.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "enzyme-to-json": "^3.3.5",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.16.0"
   }
 }
