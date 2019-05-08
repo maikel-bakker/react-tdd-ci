@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Suspense } from 'react';
+
 import './App.css';
+import { RecipeList } from './components/RecipeList';
+
+import { ApolloClient, InMemoryCache } from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo-hooks';
+import { createHttpLink } from 'apollo-link-http';
+
+const client = new ApolloClient({
+    link: createHttpLink({
+        uri: `${process.env.REACT_APP_API}/graphql`,
+        useGETForQueries: true
+    }),
+    cache: new InMemoryCache()
+});
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    console.log(process.env.REACT_APP_API);
+
+    return (
+        <div className="App">
+            <ApolloProvider client={client}>
+                <Suspense fallback={<div>Loading App...</div>}>
+                    <RecipeList />
+                </Suspense>
+            </ApolloProvider>
+        </div>
+    );
 }
 
 export default App;
